@@ -8,7 +8,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 coloredlogs==14.0
-git+https://github.com/addybrown/common_services@master
+git+https://github.com/addybrown/common_services@master#egg=common_services
 croniter==2.0.1
 dagit==1.5.9
 dagster==1.5.9
@@ -17,7 +17,7 @@ dagster-pipes==1.5.9
 dagster-webserver==1.5.9
 docstring-parser==0.15
 exceptiongroup==1.2.0
-git+https://github.com/addybrown/foot_api@master
+git+https://github.com/addybrown/foot_api@master#egg=foot_api
 fsspec==2023.10.0
 gql==3.4.1
 graphene==3.3
