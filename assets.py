@@ -43,41 +43,42 @@ load_dotenv()
 
 
 @asset
-def update_schedule_table():
+def update_schedule():
     update_schedule_table()
+    return "Done"
 
 
 @asset
-def update_match_details(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_details(update_schedule: str):
+    if update_schedule == "Done":
         update_match_details_table()
 
 
 @asset
-def update_match_odds(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_odds(update_schedule: str):
+    if update_schedule == "Done":
         update_match_odds_table()
 
 
 @asset
-def update_match_shotmap(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_shotmap(update_schedule: str):
+    if update_schedule == "Done":
         update_match_shotmap_table()
 
 
 @asset
-def update_match_incidents(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_incidents(update_schedule: str):
+    if update_schedule == "Done":
         update_match_incidents_table()
 
 
 @asset
-def update_match_lineup(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_lineup(update_schedule: str):
+    if update_schedule == "Done":
         update_match_lineup_and_player_statistics()
 
 
 @asset
-def update_match_statistics(update_schedule_table: str):
-    if update_schedule_table == "Done":
+def update_match_statistics(update_schedule: str):
+    if update_schedule == "Done":
         update_match_statistics_table()
