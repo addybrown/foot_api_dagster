@@ -1,22 +1,4 @@
 locations:
-  - location_name: data-eng-pipeline
+  - location_name: dags
     code_source:
-      package_name: quickstart_etl
-    build:
-      directory: ./quickstart_etl
-      registry: localhost:5000/docker_image
-  - location_name: ml-pipeline
-    code_source:
-      package_name: quickstart_ml
-    working_directory: ./ml_project
-    executable_path: venvs/path/to/ml_tensorflow/bin/python
-  - location_name: my_random_assets
-    code_source:
-      python_file: random_assets.py
-    container_context:
-      k8s:
-        env_vars:
-          - database_name
-          - database_username=hooli_testing
-        env_secrets:
-          - database_password
+      python_file: assets.py
