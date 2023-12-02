@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from dagster import asset
 
 from dotenv import load_dotenv
-from foot_api_data_pipeline.schedule import get_schedule_df
+from foot_api_data_pipeline.schedule import update_schedule_table
 from foot_api_data_pipeline.pipeline_services import get_schedule
 
 # Imports for Match Updater Files
@@ -43,56 +43,8 @@ load_dotenv()
 
 
 @asset
-def generate_date_list(context):
-    today = datetime.now().date()
-    three_days_later = today + timedelta(days=3)
-
-    date_list = [
-        str(today + timedelta(days=x))
-        for x in range((three_days_later - today).days + 1)
-    ]
-
-    context.log.info(f"Generated date list: {date_list}")
-    return date_list
-
-
-@asset
-def get_schedule_dfs(generate_date_list: list):
-    all_schedules = []
-    for date in generate_date_list:
-        date_format = "%Y-%m-%d"
-        date_object = datetime.strptime(date, date_format)
-        day = str(date_object.day)
-        month = str(date_object.month)
-        year = str(date_object.year)
-        schedule_response_json = api_client.get_schedule_response_json(
-            day=day, month=month, year=year
-        )
-
-        schedule_df = get_schedule_df(
-            day=day,
-            month=month,
-            year=year,
-            schedule_response_json=schedule_response_json,
-        )
-
-        schedule_df["created_on"] = datetime.utcnow()
-
-        all_schedules.append(schedule_df)
-
-    return pd.concat(all_schedules)
-
-
-@asset
-def update_schedule_table(get_schedule_dfs):
-    session = create_session()
-    bulk_upsert_write_sql(
-        df=get_schedule_dfs,
-        dbtable="schedule",
-        dbschema="football_data",
-        session=session,
-    )
-    return "Done"
+def update_schedule_table():
+    update_schedule_table()
 
 
 @asset
