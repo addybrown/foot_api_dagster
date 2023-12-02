@@ -17,7 +17,7 @@ dagster-pipes==1.5.9
 dagster-webserver==1.5.9
 docstring-parser==0.15
 exceptiongroup==1.2.0
-git+https://github.com/addybrown/foot_api@master#egg=foot_api
+git+https://github.com/addybrown/foot_api@master
 fsspec==2023.10.0
 gql==3.4.1
 graphene==3.3
