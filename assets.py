@@ -49,7 +49,7 @@ my_policy = AutoMaterializePolicy.eager().with_rules(
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_schedule():
@@ -58,7 +58,7 @@ def update_schedule():
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_details(update_schedule: str):
@@ -67,7 +67,7 @@ def update_match_details(update_schedule: str):
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_odds(update_schedule: str):
@@ -76,7 +76,7 @@ def update_match_odds(update_schedule: str):
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_shotmap(update_schedule: str):
@@ -85,7 +85,7 @@ def update_match_shotmap(update_schedule: str):
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_incidents(update_schedule: str):
@@ -94,7 +94,7 @@ def update_match_incidents(update_schedule: str):
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_lineup(update_schedule: str):
@@ -103,7 +103,7 @@ def update_match_lineup(update_schedule: str):
 
 
 @asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60),
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
     auto_materialize_policy=my_policy,
 )
 def update_match_statistics(update_schedule: str):
