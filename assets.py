@@ -44,7 +44,7 @@ api_client = FootApiHarvester()
 load_dotenv()
 
 my_policy = AutoMaterializePolicy.eager().with_rules(
-    AutoMaterializeRule.materialize_on_cron(cron_schedule="0 * * * *"),
+    AutoMaterializeRule.materialize_on_cron(cron_schedule="0 22 * * *"),
 )
 
 
