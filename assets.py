@@ -3,7 +3,8 @@ import time
 import pandas as pd
 
 from datetime import datetime, timedelta
-from dagster import asset
+from dagster import asset, FreshnessPolicy
+
 
 from dotenv import load_dotenv
 from foot_api_data_pipeline.schedule import update_schedule_table
@@ -37,48 +38,49 @@ from foot_api_data_pipeline.variables import (
     RELEVANT_LEAGUES,
 )
 
+
 api_client = FootApiHarvester()
 
 load_dotenv()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_schedule():
     update_schedule_table()
     return "Done"
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_details(update_schedule: str):
     if update_schedule == "Done":
         update_match_details_table()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_odds(update_schedule: str):
     if update_schedule == "Done":
         update_match_odds_table()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_shotmap(update_schedule: str):
     if update_schedule == "Done":
         update_match_shotmap_table()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_incidents(update_schedule: str):
     if update_schedule == "Done":
         update_match_incidents_table()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_lineup(update_schedule: str):
     if update_schedule == "Done":
         update_match_lineup_and_player_statistics()
 
 
-@asset
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_statistics(update_schedule: str):
     if update_schedule == "Done":
         update_match_statistics_table()
