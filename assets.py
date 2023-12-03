@@ -44,7 +44,9 @@ api_client = FootApiHarvester()
 load_dotenv()
 
 
-@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
+@asset(
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule=" 0 9 * * *"
+)
 def update_schedule():
     update_schedule_table()
     return "Done"
