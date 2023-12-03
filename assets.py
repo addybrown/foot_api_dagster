@@ -3,7 +3,7 @@ import time
 import pandas as pd
 
 from datetime import datetime, timedelta
-from dagster import asset, FreshnessPolicy, cron_schedule
+from dagster import asset, FreshnessPolicy, AutoMaterializePolicy, AutoMaterializeRule
 
 
 from dotenv import load_dotenv
@@ -43,58 +43,48 @@ api_client = FootApiHarvester()
 
 load_dotenv()
 
-
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
+my_policy = AutoMaterializePolicy.eager().with_rules(
+    AutoMaterializeRule.materialize_on_cron(cron_schedule="0 * * * *"),
 )
+
+
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_schedule():
     update_schedule_table()
     return "Done"
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_details(update_schedule: str):
     if update_schedule == "Done":
         update_match_details_table()
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_odds(update_schedule: str):
     if update_schedule == "Done":
         update_match_odds_table()
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_shotmap(update_schedule: str):
     if update_schedule == "Done":
         update_match_shotmap_table()
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_incidents(update_schedule: str):
     if update_schedule == "Done":
         update_match_incidents_table()
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_lineup(update_schedule: str):
     if update_schedule == "Done":
         update_match_lineup_and_player_statistics()
 
 
-@asset(
-    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60), cron_schedule="0 * * * *"
-)
+@asset(freshness_policy=FreshnessPolicy(maximum_lag_minutes=60))
 def update_match_statistics(update_schedule: str):
     if update_schedule == "Done":
         update_match_statistics_table()
