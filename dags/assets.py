@@ -18,7 +18,7 @@ from foot_api_data_pipeline.match_lineup import (
     update_match_lineup_and_player_statistics,
 )
 from foot_api_data_pipeline.match_statistics import update_match_statistics_table
-
+from foot_api_data_pipeline.players import update_player_table
 
 from foot_api_data_pipeline.match_lineup import (
     update_match_lineup_and_player_statistics,
@@ -129,3 +129,9 @@ def update_match_lineup(update_schedule_table: str):
 def update_match_statistics(update_schedule_table: str):
     if update_schedule_table == "Done":
         update_match_statistics_table()
+
+
+@asset
+def update_player(update_schedule_table: str):
+    if update_schedule_table == "Done":
+        update_player_table()
