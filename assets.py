@@ -20,7 +20,7 @@ from foot_api_data_pipeline.match_lineup import (
 )
 from foot_api_data_pipeline.match_statistics import update_match_statistics_table
 
-
+from foot_api_data_pipeline.players import update_player_table
 from foot_api_data_pipeline.match_lineup import (
     update_match_lineup_and_player_statistics,
 )
@@ -109,3 +109,12 @@ def update_match_lineup(update_schedule: str):
 def update_match_statistics(update_schedule: str):
     if update_schedule == "Done":
         update_match_statistics_table()
+
+
+@asset(
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=60 * 24),
+    auto_materialize_policy=my_policy,
+)
+def update_player(update_schedule: str):
+    if update_schedule == "Done":
+        update_player_table()
